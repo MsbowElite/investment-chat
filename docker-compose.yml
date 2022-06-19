@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  investmentchat.web:
+    image: ${DOCKER_REGISTRY-}investmentchatapi
+    build:
+      context: .
+      dockerfile: InvestmentChat.Web/Dockerfile
+    depends_on:
+        - investmentchat.api
+
+
+  investmentchat.api:
+    image: ${DOCKER_REGISTRY-}investmentchatapi
+    build:
+      context: .
+      dockerfile: InvestmentChat.Api/Dockerfile
