@@ -6,4 +6,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ChoETL.JSON" Version="1.2.1.47" />
+    <PackageReference Include="ConvertCsvToJson" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InvestmentChat.Domain\InvestmentChat.Domain.csproj" />
+    <ProjectReference Include="..\InvestmentChat.Infra.CrossCutting.Utils\InvestmentChat.Infra.CrossCutting.Utils.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,10 @@
-using InvestmentChat.Api.Hubs;
+using InvestmentChat.Domain.HttpClients;
 using InvestmentChat.Domain.Services;
 using InvestmentChat.Infra.CrossCutting.Utils.Settings;
+using InvestmentChat.Infra.Data.HttpClients;
 using InvestmentChat.Infra.Data.Services;
+using Polly;
+using Polly.Extensions.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,28 +14,21 @@ builder.Services.AddSwaggerGen(options =>
     options.AddSignalRSwaggerGen();
 });
 
-builder.Services.AddCors(options =>
+builder.Services.AddHttpClient<IStooqClient, StooqClient>(client =>
 {
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder
-            .WithOrigins("https://localhost:6001")
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
-        });
+    client.BaseAddress = new Uri(builder.Configuration["StooqUrl"]);
 });
-builder.Services.AddSignalR();
+
+builder.Services.AddHostedService<RabbitMQConsumer>();
 
 var rabbitMQSettings = new RabbitMQSettings();
 builder.Configuration.GetSection("RabbitMQSettings").Bind(rabbitMQSettings);
+builder.Services.AddSingleton(rabbitMQSettings);
 builder.Services.AddSingleton<IRabbitMQPublisher>(x =>
     new RabbitMQPublisher(rabbitMQSettings));
 
 var app = builder.Build();
 
-app.UseCors("AllowAll");
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -41,11 +37,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHub<ChatHub>("/chat");
-});
-
 app.UseHttpsRedirection();
 
 app.Run();
+
+static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+{
+    return HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+        .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+}

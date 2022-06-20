@@ -15,3 +15,20 @@ services:
     build:
       context: .
       dockerfile: InvestmentChat.Api/Dockerfile
+
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: InvestmentChat.rabbitmq
+    ports:
+        - "15672:15672"
+        - "5672:5672"
+
+  investmentchat.bot:
+    image: ${DOCKER_REGISTRY-}investmentchatbot
+    build:
+      context: .
+      dockerfile: InvestmentChat.Bot/Dockerfile
+    depends_on:
+        - rabbitmq
+

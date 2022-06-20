@@ -19,11 +19,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.1 - Data", "3.1 - Data", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.2 - CrossCutting", "3.2 - CrossCutting", "{8B807254-9B55-42A4-8B1F-93C714C5E819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentChat.Infra.CrossCutting.IoC", "InvestmentChat.Infra.CrossCutting.IoC\InvestmentChat.Infra.CrossCutting.IoC.csproj", "{109F7FD3-217B-4B83-AF17-F1F87408FF74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentChat.Infra.CrossCutting.IoC", "InvestmentChat.Infra.CrossCutting.IoC\InvestmentChat.Infra.CrossCutting.IoC.csproj", "{109F7FD3-217B-4B83-AF17-F1F87408FF74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentChat.Api", "InvestmentChat.Api\InvestmentChat.Api.csproj", "{9AF19F3B-C208-4FA5-B45A-C3BCA1309748}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentChat.Api", "InvestmentChat.Api\InvestmentChat.Api.csproj", "{9AF19F3B-C208-4FA5-B45A-C3BCA1309748}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{67D88A48-6FE7-404A-AA56-EF468598E9F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentChat.Infra.CrossCutting.Utils", "InvestmentChat.Infra.CrossCutting.Utils\InvestmentChat.Infra.CrossCutting.Utils.csproj", "{838B409C-1B8D-4682-9B9E-6D373CEDA02E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentChat.Bot", "InvestmentChat.Bot\InvestmentChat.Bot.csproj", "{B35559F8-0201-40EC-A3B9-464A735F8F03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,14 @@ Global
 		{67D88A48-6FE7-404A-AA56-EF468598E9F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67D88A48-6FE7-404A-AA56-EF468598E9F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67D88A48-6FE7-404A-AA56-EF468598E9F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{838B409C-1B8D-4682-9B9E-6D373CEDA02E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{838B409C-1B8D-4682-9B9E-6D373CEDA02E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{838B409C-1B8D-4682-9B9E-6D373CEDA02E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{838B409C-1B8D-4682-9B9E-6D373CEDA02E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B35559F8-0201-40EC-A3B9-464A735F8F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35559F8-0201-40EC-A3B9-464A735F8F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35559F8-0201-40EC-A3B9-464A735F8F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35559F8-0201-40EC-A3B9-464A735F8F03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +79,8 @@ Global
 		{8B807254-9B55-42A4-8B1F-93C714C5E819} = {281C9932-C101-473D-9C91-6F9BE8F70FDA}
 		{109F7FD3-217B-4B83-AF17-F1F87408FF74} = {8B807254-9B55-42A4-8B1F-93C714C5E819}
 		{9AF19F3B-C208-4FA5-B45A-C3BCA1309748} = {1E5776B5-9F0D-459D-B2B7-C1D32D666343}
+		{838B409C-1B8D-4682-9B9E-6D373CEDA02E} = {8B807254-9B55-42A4-8B1F-93C714C5E819}
+		{B35559F8-0201-40EC-A3B9-464A735F8F03} = {1E5776B5-9F0D-459D-B2B7-C1D32D666343}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61CEACCA-5E7B-4C09-B557-CF20ED63F577}
