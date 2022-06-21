@@ -35,7 +35,8 @@ namespace InvestmentChat.Api.Consumers
 
                 if (message is not null)
                 {
-                    _hubContext.Clients.All.SendAsync("ReceiveMessage", BotUser, JsonSerializer.Serialize(message)).Wait();
+                    _hubContext.Clients.All.SendAsync("ReceiveMessage", BotUser, 
+                        $"{message.Symbol.ToUpper()} quote is ${message.Close} per share").Wait();
                 }
 
                 _channel.BasicAck(ea.DeliveryTag, false);
