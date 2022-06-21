@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   investmentchat.web:
-    image: ${DOCKER_REGISTRY-}investmentchatapi
+    image: ${DOCKER_REGISTRY-}investmentchatweb
     build:
       context: .
       dockerfile: InvestmentChat.Web/Dockerfile

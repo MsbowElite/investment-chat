@@ -5,6 +5,6 @@ namespace InvestmentChat.Domain.HttpClients
 {
     public interface IStooqClient
     {
-        Task<IOperation> GetStooqCsv(StooqRequest stooqRequest);
+        Task<IOperation> GetStooq(StooqRequest stooqRequest);
     }
 }

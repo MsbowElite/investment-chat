@@ -4,6 +4,7 @@ using InvestmentChat.Domain.HttpClients;
 using InvestmentChat.Infra.CrossCutting.Utils.Notification;
 using InvestmentChat.Infra.CrossCutting.Utils.Notification.Enums;
 using InvestmentChat.Infra.CrossCutting.Utils.Notification.Interfaces;
+using Serilog;
 using System.Text;
 using System.Text.Json;
 
@@ -15,7 +16,7 @@ namespace InvestmentChat.Infra.Data.HttpClients
 
         public StooqClient(HttpClient httpClient) : base(httpClient) { }
 
-        public async Task<IOperation> GetStooqCsv(StooqRequest stooqRequest)
+        public async Task<IOperation> GetStooq(StooqRequest stooqRequest)
         {
             try
             {
@@ -32,12 +33,12 @@ namespace InvestmentChat.Infra.Data.HttpClients
                         w.Write(p);
                 }
                 var json = JsonSerializer.Deserialize<List<StooqInfo>>(sb.ToString());
-                return Result.CreateSuccess(json);
-
+                return Result.CreateSuccess(json.FirstOrDefault());
             }
             catch (Exception ex)
             {
-
+                Log.Logger.Error("{FullName} --- {stooqrequest} | {ex}", 
+                    GetType().FullName, JsonSerializer.Serialize(stooqRequest), JsonSerializer.Serialize(ex));
             }
 
             return Result.CreateFailure(ErrorCodes.FailedHttpClient);

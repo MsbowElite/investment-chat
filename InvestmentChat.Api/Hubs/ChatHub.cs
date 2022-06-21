@@ -18,11 +18,11 @@ namespace InvestmentChat.Api.Hubs
             _rabbitMQPublisher = rabbitMQPublisher;
         }
 
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(string user, string message, bool isBot = false)
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
 
-            if (message.StartsWith(StockPrefix))
+            if (message.StartsWith(StockPrefix) && !isBot)
             {
                 var stooqRequest = new StooqRequest() { StockCode = message.Remove(0, StockPrefix.Length) };
                 _rabbitMQPublisher.Publish(JsonSerializer.Serialize(stooqRequest), RabbitMQTopics.TopicActionInfo);

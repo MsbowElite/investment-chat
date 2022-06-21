@@ -18,6 +18,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - RabbitMQSettings__Host=amqp://rabbitmq
     ports:
       - "6002:80"
       - "6003:443"
@@ -30,6 +31,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - RabbitMQSettings__Host=amqp://rabbitmq
     ports:
       - "6004:80"
       - "6005:443"

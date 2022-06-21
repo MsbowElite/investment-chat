@@ -1,3 +1,4 @@
+using InvestmentChat.Bot.Consumers;
 using InvestmentChat.Domain.HttpClients;
 using InvestmentChat.Domain.Services;
 using InvestmentChat.Infra.CrossCutting.Utils.Settings;
@@ -19,7 +20,7 @@ builder.Services.AddHttpClient<IStooqClient, StooqClient>(client =>
     client.BaseAddress = new Uri(builder.Configuration["StooqUrl"]);
 });
 
-builder.Services.AddHostedService<RabbitMQConsumer>();
+builder.Services.AddHostedService<GetStockInfoConsumer>();
 
 var rabbitMQSettings = new RabbitMQSettings();
 builder.Configuration.GetSection("RabbitMQSettings").Bind(rabbitMQSettings);

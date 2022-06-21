@@ -1,3 +1,4 @@
+using InvestmentChat.Api.Consumers;
 using InvestmentChat.Api.Hubs;
 using InvestmentChat.Domain.Services;
 using InvestmentChat.Infra.CrossCutting.Utils.Settings;
@@ -25,10 +26,15 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddSignalR();
 
+builder.Services.AddHostedService<BotMessageConsumer>();
+
 var rabbitMQSettings = new RabbitMQSettings();
 builder.Configuration.GetSection("RabbitMQSettings").Bind(rabbitMQSettings);
+builder.Services.AddSingleton(rabbitMQSettings);
 builder.Services.AddSingleton<IRabbitMQPublisher>(x =>
     new RabbitMQPublisher(rabbitMQSettings));
+
+builder.Services.AddSingleton<ChatHub>();
 
 var app = builder.Build();
 
