@@ -47,7 +47,7 @@ namespace InvestmentChat.Infra.Data.Services
 
                 return Result.CreateSuccess();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.Logger.Error("{FullName} --- {message} | {ex}", GetType().FullName, message, JsonSerializer.Serialize(ex));
                 return Result.CreateFailure(ErrorCodes.FailedSendRabbitMQMessage);

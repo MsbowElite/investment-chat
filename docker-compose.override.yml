@@ -5,7 +5,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - SignalRHubUrl=https://localhost:6003/chat
+      - AppSettings__SignalRHubUrl=https://localhost:6003/chat
+      - AppSettings__IdentityAPIUrl=http://investmentchat.identity
     ports:
       - "6000:80"
       - "6001:443"
@@ -35,6 +36,18 @@ services:
     ports:
       - "6004:80"
       - "6005:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+
+  investmentchat.identity:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=mssql;Database=Investment; user id=sa;password=Insecure!12345;
+    ports:
+      - "6006:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

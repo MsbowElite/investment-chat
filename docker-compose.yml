@@ -8,6 +8,7 @@ services:
       dockerfile: InvestmentChat.Web/Dockerfile
     depends_on:
         - investmentchat.api
+        - investmentchat.identity
 
 
   investmentchat.api:
@@ -15,7 +16,17 @@ services:
     build:
       context: .
       dockerfile: InvestmentChat.Api/Dockerfile
+    depends_on:
+        - rabbitmq
+        - investmentchat.bot
 
+  investmentchat.identity:
+    image: ${DOCKER_REGISTRY-}investmentchatidentity
+    build:
+      context: .
+      dockerfile: InvestmentChat.Identity/Dockerfile
+    depends_on: 
+        - mssql
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -32,3 +43,12 @@ services:
     depends_on:
         - rabbitmq
 
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 1433:1433
+    volumes:
+      - ~/apps/mssql/data:/var/lib/mssqlql/data
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Insecure!12345

@@ -37,7 +37,7 @@ namespace InvestmentChat.Infra.Data.HttpClients
             }
             catch (Exception ex)
             {
-                Log.Logger.Error("{FullName} --- {stooqrequest} | {ex}", 
+                Log.Logger.Error("{FullName} --- {stooqrequest} | {ex}",
                     GetType().FullName, JsonSerializer.Serialize(stooqRequest), JsonSerializer.Serialize(ex));
             }
 

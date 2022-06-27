@@ -1,5 +1,4 @@
-﻿using InvestmentChat.Infra.CrossCutting.Utils.Settings;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace InvestmentChat.Infra.CrossCutting.IoC
 {

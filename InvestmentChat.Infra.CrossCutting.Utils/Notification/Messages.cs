@@ -1,11 +1,7 @@
 ﻿using InvestmentChat.Infra.CrossCutting.Utils.Notification.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Extensions;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace InvestmentChat.Infra.CrossCutting.Utils.Notification
 {

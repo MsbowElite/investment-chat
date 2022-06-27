@@ -1,7 +1,6 @@
 ﻿using InvestmentChat.Api.Hubs;
 using InvestmentChat.Domain.Constants;
 using InvestmentChat.Domain.Dto;
-using InvestmentChat.Domain.HttpClients;
 using InvestmentChat.Infra.CrossCutting.Utils.Settings;
 using InvestmentChat.Infra.Data.Services;
 using Microsoft.AspNetCore.SignalR;
@@ -35,7 +34,7 @@ namespace InvestmentChat.Api.Consumers
 
                 if (message is not null)
                 {
-                    _hubContext.Clients.All.SendAsync("ReceiveMessage", BotUser, 
+                    _hubContext.Clients.All.SendAsync("ReceiveMessage", BotUser,
                         $"{message.Symbol.ToUpper()} quote is ${message.Close} per share").Wait();
                 }
 

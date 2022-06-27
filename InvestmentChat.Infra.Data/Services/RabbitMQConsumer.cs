@@ -1,12 +1,6 @@
-﻿using InvestmentChat.Domain.Constants;
-using InvestmentChat.Domain.Dto;
-using InvestmentChat.Domain.HttpClients;
-using InvestmentChat.Infra.CrossCutting.Utils.Settings;
+﻿using InvestmentChat.Infra.CrossCutting.Utils.Settings;
 using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System.Text;
-using System.Text.Json;
 
 namespace InvestmentChat.Infra.Data.Services
 {

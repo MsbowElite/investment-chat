@@ -7,6 +7,7 @@ using System.Text.Json;
 
 namespace InvestmentChat.Api.Hubs
 {
+    //[Authorize(Roles = SD.Admin)]
     [SignalRHub]
     public class ChatHub : Hub
     {
