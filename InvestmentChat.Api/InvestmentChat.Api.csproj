@@ -10,6 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.16.1" />
 		<PackageReference Include="SignalRSwaggerGen" Version="3.2.1" />
@@ -19,6 +20,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\InvestmentChat.Domain\InvestmentChat.Domain.csproj" />
+		<ProjectReference Include="..\InvestmentChat.Infra.CrossCutting.IoC\InvestmentChat.Infra.CrossCutting.IoC.csproj" />
 		<ProjectReference Include="..\InvestmentChat.Infra.CrossCutting.Utils\InvestmentChat.Infra.CrossCutting.Utils.csproj" />
 		<ProjectReference Include="..\InvestmentChat.Infra.Data\InvestmentChat.Infra.Data.csproj" />
 	</ItemGroup>

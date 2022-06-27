@@ -1,47 +1,20 @@
+using InvestmentChat.Api.Configurations;
 using InvestmentChat.Api.Consumers;
 using InvestmentChat.Api.Hubs;
 using InvestmentChat.Api.Settings;
 using InvestmentChat.Domain.Services;
+using InvestmentChat.Infra.CrossCutting.IoC;
 using InvestmentChat.Infra.CrossCutting.Utils.Settings;
 using InvestmentChat.Infra.Data.Services;
+using MediatR;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.AddSignalRSwaggerGen();
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "InvestmentChat.API", Version = "v1" });
-    c.EnableAnnotations();
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = @"Bearer [token]",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type=ReferenceType.SecurityScheme,
-                                Id="Bearer"
-                            },
-                            Scheme="oauth2",
-                            Name="Bearer",
-                            In=ParameterLocation.Header
-                        },
-                        new List<string>()
-                    }
-
-                });
-});
+builder.Services.AddSwaggerConfiguration();
 
 var appSettings = new AppSettings();
 builder.Configuration.GetSection("AppSettings").Bind(appSettings);
@@ -81,13 +54,14 @@ builder.Services.AddAuthorization(options =>
 });
 
 var rabbitMQSettings = new RabbitMQSettings();
-builder.Configuration.GetSection("RabbitMQSettings").Bind(rabbitMQSettings);
+builder.Configuration.GetSection(nameof(RabbitMQSettings)).Bind(rabbitMQSettings);
 builder.Services.AddSingleton(rabbitMQSettings);
 builder.Services.AddSingleton<IRabbitMQPublisher>(x =>
     new RabbitMQPublisher(rabbitMQSettings));
 
 builder.Services.AddSingleton<ChatHub>();
 
+builder.Services.RegisterServices();
 var app = builder.Build();
 
 app.UseCors("AllowAll");
