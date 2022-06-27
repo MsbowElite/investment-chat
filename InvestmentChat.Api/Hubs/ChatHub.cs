@@ -1,7 +1,7 @@
-﻿using InvestmentChat.Domain.Constants;
-using InvestmentChat.Domain.Dto;
-using InvestmentChat.Domain.Services;
+﻿using InvestmentChat.Domain.Commands;
+using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using Serilog;
 using SignalRSwaggerGen.Attributes;
 using System.Text.Json;
 
@@ -11,23 +11,29 @@ namespace InvestmentChat.Api.Hubs
     [SignalRHub]
     public class ChatHub : Hub
     {
-        private readonly IRabbitMQPublisher _rabbitMQPublisher;
-        private const string StockPrefix = "/stock=";
+        private readonly IMediator _mediator;
 
-        public ChatHub(IRabbitMQPublisher rabbitMQPublisher)
+        public ChatHub(IMediator mediator)
         {
-            _rabbitMQPublisher = rabbitMQPublisher;
+            _mediator = mediator;
         }
 
-        public async Task SendMessage(string user, string message, bool isBot = false)
+        public async Task SendMessage(string user, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
-
-            if (message.StartsWith(StockPrefix) && !isBot)
+            try
             {
-                var stooqRequest = new StooqRequest() { StockCode = message.Remove(0, StockPrefix.Length) };
-                _rabbitMQPublisher.Publish(JsonSerializer.Serialize(stooqRequest), RabbitMQTopics.TopicActionInfo);
+                await Clients.All.SendAsync("ReceiveMessage", user, message);
             }
+            catch (Exception ex)
+            {
+                Log.Logger.Error("{FullName} --- User:{user} | Message:{message} Exception:{ex}",
+                    GetType().FullName,
+                    user,
+                    message,
+                    JsonSerializer.Serialize(ex));
+            }
+
+            await _mediator.Send(new AnalyzerStockMessageCommand(message));
         }
     }
 }

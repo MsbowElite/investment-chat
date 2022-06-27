@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\InvestmentChat.Infra.CrossCutting.Utils\InvestmentChat.Infra.CrossCutting.Utils.csproj" />
   </ItemGroup>
 
