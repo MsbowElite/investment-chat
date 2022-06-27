@@ -23,8 +23,8 @@ namespace InvestmentChat.Web
             services.AddRazorPages();
 
             var appSettings = new AppSettings();
-            services.AddSingleton(appSettings);
             Configuration.GetSection("AppSettings").Bind(appSettings);
+            services.AddSingleton(appSettings);
 
             services.AddAuthentication(options =>
             {
