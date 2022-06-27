@@ -4,8 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-AppSettings appSettings = new AppSettings();
-appSettings.SignalRHubUrl = builder.Configuration.GetValue<string>("SignalRHubUrl");
+
+var appSettings = new AppSettings();
+builder.Configuration.GetSection("AppSettings").Bind(appSettings);
 
 builder.Services.AddSingleton(appSettings);
 

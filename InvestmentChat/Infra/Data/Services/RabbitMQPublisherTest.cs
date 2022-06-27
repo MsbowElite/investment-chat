@@ -8,11 +8,11 @@ namespace InvestmentChat.Infra.Data.Services
 {
     public class RabbitMQPublisherTest
     {
-        private readonly 
+        //private readonly 
 
-        public RabbitMQPublisherTest()
-        {
+        //public RabbitMQPublisherTest()
+        //{
 
-        }
+        //}
     }
 }

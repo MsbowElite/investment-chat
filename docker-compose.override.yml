@@ -5,7 +5,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - SignalRHubUrl=https://localhost:6003/chat
+      - AppSettings__SignalRHubUrl=https://localhost:6003/chat
     ports:
       - "6000:80"
       - "6001:443"
@@ -19,6 +19,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - RabbitMQSettings__Host=amqp://rabbitmq
+      - AppSettings__InvestmentChatWebUrl=https://localhost:6001
     ports:
       - "6002:80"
       - "6003:443"

@@ -1,3 +1,4 @@
+using InvestmentChat.Api.Configurations;
 using InvestmentChat.Api.Consumers;
 using InvestmentChat.Api.Hubs;
 using InvestmentChat.Domain.Services;
@@ -12,13 +13,16 @@ builder.Services.AddSwaggerGen(options =>
     options.AddSignalRSwaggerGen();
 });
 
+var appSettings = new AppSettings();
+builder.Configuration.GetSection("AppSettings").Bind(appSettings);
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
         builder =>
         {
             builder
-            .WithOrigins("https://localhost:6001")
+            .WithOrigins(appSettings.InvestmentChatWebUrl)
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
